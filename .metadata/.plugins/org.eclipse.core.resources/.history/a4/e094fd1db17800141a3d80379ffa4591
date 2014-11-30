@@ -1,8 +1,0 @@
-package core;
-
-import org.springframework.data.repository.Repository;
-
-
-public abstract class AbstractRepository<T,ID> implements Repository<T,ID>{
-
-}
