@@ -1,0 +1,6 @@
+log4j.rootCategory=INFO, stdout
+
+log4j.category.org.apache.activemq=ERROR
+log4j.category.org.springframework.batch=ERROR
+log4j.category.org.springframework.data.document.mongodb=ERROR
+log4j.category.org.springframework.transaction=WARN

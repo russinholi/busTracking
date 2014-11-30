@@ -1,0 +1,2 @@
+log4j.category.org.springframework.data.document.mongodb=WARN
+log4j.category.o.s.data.mongodb=WARN

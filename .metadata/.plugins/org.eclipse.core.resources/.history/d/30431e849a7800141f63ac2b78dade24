@@ -1,0 +1,38 @@
+package core;
+
+import java.util.ArrayList;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import core.model.Bus;
+import core.model.Linha;
+import core.model.Ponto;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes={ApplicationConfig.class})
+public class ConfigTest {
+
+	@Autowired
+	private MongoOperations mongoOperations;
+	
+	@Test
+	public void testarConexao() {
+		
+		ArrayList<Ponto> rota = new ArrayList<Ponto>();
+		rota.add(new Ponto(3, 12.12, 23.23));
+		mongoOperations.insert(new Bus(1, new Linha("cerro azul", 2, rota)));
+		
+		Assert.assertNotNull(mongoOperations.findOne(new Query(Criteria.where("id").is(1)),Bus.class));
+	}
+	
+	
+}

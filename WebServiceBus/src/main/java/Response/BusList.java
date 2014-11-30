@@ -11,9 +11,11 @@ package Response;
  * @author Felipe Cousin
  */
 
-import core.Bus;
+import core.model.Bus;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /*

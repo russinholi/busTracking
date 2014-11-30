@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ConfigTest" project="WebServiceBus" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="core.ConfigTest" time="54.488">
+    <testcase name="testarInsercaoSimple" classname="core.ConfigTest" time="1.361"/>
+    <testcase name="testarBuscarOnibusPorLinha" classname="core.ConfigTest" time="53.127"/>
+  </testsuite>
+</testrun>

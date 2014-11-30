@@ -1,6 +1,7 @@
 package core;
 
 
+import core.utils.WSBusProperties;
 import io.dropwizard.Configuration;
 import io.dropwizard.jetty.HttpConnectorFactory;
 import io.dropwizard.server.DefaultServerFactory;
@@ -18,8 +19,14 @@ import io.dropwizard.server.DefaultServerFactory;
 public class WSBusConfiguration extends Configuration{
     
 	public WSBusConfiguration() {
-		((HttpConnectorFactory) ((DefaultServerFactory) getServerFactory()).getApplicationConnectors().get(0)).setPort(9090);
-	    // this is for admin port
-	    ((HttpConnectorFactory) ((DefaultServerFactory) getServerFactory()).getAdminConnectors().get(0)).setPort(9091);
+		WSBusProperties properties = WSBusProperties.getInstance();
+		DefaultServerFactory serverFactory = (DefaultServerFactory) getServerFactory();
+		
+		HttpConnectorFactory appConnectorFactory = (HttpConnectorFactory) serverFactory.getApplicationConnectors().get(0);
+		appConnectorFactory.setPort(properties.getAppConectorPort());
+		
+		HttpConnectorFactory admConnectorFactory = (HttpConnectorFactory) serverFactory.getAdminConnectors().get(0);
+		admConnectorFactory.setPort(properties.getAdmConectorPort());
+		
 	}
 }

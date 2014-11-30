@@ -1,9 +1,11 @@
 package Response;
 
 
-import core.Ponto;
+import core.model.Ponto;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /*

@@ -1,0 +1,43 @@
+1416964182401	Delete element
+1417287084486	Extract method 'atualizarOnibus'
+1417288113967	Rename local variable 'deltat'
+1417289755617	Rename method 'getUserById'
+1417290215034	Rename local variable 'b'
+1417292673583	Rename type 'WSBusConfiguration'
+1417292804772	Rename field 'busProperties'
+1417293154901	Extract local variable 'properties'
+1417293478448	Extract local variable 'serverFactory'
+1417293702686	Extract local variable 'port'
+1417347862209	Move compilation units
+1417355148622	Extract local variable 'collectionNames'
+1417355820035	Extract local variable 'db'
+1417356099651	Extract local variable 'createCollection'
+1417356479617	Extract local variable 'rota'
+1417356577353	Extract local variable 'ponto'
+1417366908329	Delete element
+1417368057136	Rename method 'pegarLinha'
+1417368182440	Copy compilation unit
+1417368228832	Rename local variable 'bus'
+1417368650611	Extract local variable 'linha'
+1417370459527	Rename local variable 'linhaId'
+1417370507025	Extract local variable 'onibusLinha'
+1417371156794	Extract local variable 'where'
+1417371250326	Extract local variable 'onibusPonto'
+1417371623569	Rename method 'pegarPontosNaLinha'
+1417371851896	Extract local variable 'responsePontoList'
+1417372881592	Rename local variable 'bus'
+1417373176520	Rename field 'idLinha'
+1417373199045	Rename method 'getIdLinha'
+1417373206634	Rename local variable 'idLinha'
+1417373277734	Encapsulate field 'linha'
+1417373580726	Move compilation units
+1417373587824	Move compilation unit
+1417373703617	Extract local variable 'onibus'
+1417375617165	Extract local variable 'configResource'
+1417376681780	Extract local variable 'pontos'
+1417376883680	Extract local variable 'responsePontos'
+1417376999481	Extract local variable 'e'
+1417377035865	Rename field 'pontoRespository'
+1417377824162	Copy file
+1417379100934	Rename resource 'log4j.properties'
+1417382944888	Encapsulate field 'linhaId'

@@ -1,0 +1,23 @@
+package core;
+
+import static org.springframework.data.mongodb.core.query.Query.*;
+import static org.springframework.data.mongodb.core.query.Criteria.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
+
+import core.model.Bus;
+
+@Repository
+public class BusRepository {
+	
+	@Autowired
+	private MongoOperations operations;
+	
+	public Bus findById(Long id) {
+	
+		Query query = query(where)
+	}
+}

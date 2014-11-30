@@ -6,7 +6,9 @@
 
 package Response;
 
-import core.*;
+import core.model.Bus;
+import core.model.Linha;
+import core.model.Ponto;
 
 /**
  *
@@ -28,11 +30,11 @@ public class ResponsePonto implements Comparable<ResponsePonto>{
         tempo = -1;
     }   
 
-    public int getIdPonto() {
+    public long getIdPonto() {
         return ponto.getId();
     }
 
-    public int getIdOnibus() {
+    public long getIdOnibus() {
         return onibus.getId();
     }
 
@@ -57,6 +59,31 @@ public class ResponsePonto implements Comparable<ResponsePonto>{
         tempo = linha.calcularTempo(onibus, ponto);
         crowdness = onibus.getCrowdness();
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ponto == null) ? 0 : ponto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ResponsePonto other = (ResponsePonto) obj;
+		if (ponto == null) {
+			if (other.ponto != null)
+				return false;
+		} else if (!ponto.equals(other.ponto))
+			return false;
+		return true;
+	}
     
     
     

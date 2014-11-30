@@ -16,9 +16,11 @@ package Response;
  * @author Felipe Cousin
  */
 
-import core.Linha;
+import core.model.Linha;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /*

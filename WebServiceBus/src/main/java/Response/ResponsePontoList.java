@@ -1,9 +1,14 @@
 package Response;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
+
+import core.model.Bus;
+import core.model.Ponto;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,7 +31,21 @@ public class ResponsePontoList {
 
     
     
-    /**
+    public static List<ResponsePonto> convertBusListToResponsePonto(List<Bus> onibusPonto) {
+    	List<ResponsePonto> responsePontos = new ArrayList<ResponsePonto>();
+		for (Bus bus : onibusPonto) {
+			for (Ponto ponto : bus.getLinha().getPontosNaLinha()) {
+				ResponsePonto responsePonto = new ResponsePonto(ponto, bus.getLinha(), bus);
+				responsePonto.atualizar();
+				responsePontos.add(responsePonto);
+			}
+		}
+		return responsePontos;
+	}
+
+
+
+	/**
      * @return the posts
      */
     @JsonProperty

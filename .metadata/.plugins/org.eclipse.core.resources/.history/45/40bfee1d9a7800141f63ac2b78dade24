@@ -1,0 +1,31 @@
+package core;
+
+import java.util.Set;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.mongodb.DB;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes={ApplicationConfig.class})
+public class ConfigTest {
+
+	@Autowired
+	private MongoDbFactory mongoDbFactory;
+	
+	@Test
+	public void testarConexao() {
+		DB db = mongoDbFactory.getDb();
+		Set<String> collectionNames = db.getCollectionNames();
+		for(String name : collectionNames) {
+			System.out.println(name);
+		}
+	}
+	
+	
+}

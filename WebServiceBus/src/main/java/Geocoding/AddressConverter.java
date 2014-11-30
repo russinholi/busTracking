@@ -60,7 +60,7 @@ public class AddressConverter {
         ObjectMapper mapper = new ObjectMapper();
         GoogleResponse response = (GoogleResponse) mapper.readValue(in, GoogleResponse.class);
         in.close();
-        System.out.println(response.getResults());
+//        System.out.println(response.getResults());
         return response;
 
     }  

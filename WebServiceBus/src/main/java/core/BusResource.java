@@ -2,10 +2,9 @@ package core;
 
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import io.dropwizard.jersey.params.IntParam;
+import io.dropwizard.jersey.params.LongParam;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -19,6 +18,13 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import core.model.Bus;
+import core.model.BusRepository;
+import core.model.LinhaRepository;
+import core.model.PontoRepository;
 
 
 //import static com.google.common.base.Preconditions.checkNotNull;
@@ -60,13 +66,22 @@ import javax.ws.rs.core.UriBuilder;
 @Path("/bus")
 public class BusResource {
     
-    private Bus onibus;
-    private ArrayList<Bus> listaOnibus = new ArrayList<Bus>();
+    @Autowired
+    private BusRepository busRepository;
+
+    @Autowired
+    private LinhaRepository linhaRepository;
     
-    public BusResource(Bus onibus) {
-        this.onibus = onibus;
-        listaOnibus.add(onibus);
-    }
+    @Autowired
+	private PontoRepository pontoRespository;
+
+//    private Bus onibus;
+//    private ArrayList<Bus> listaOnibus = new ArrayList<Bus>();
+//    
+//    public BusResource(Bus onibus) {
+//        this.onibus = onibus;
+//        listaOnibus.add(onibus);
+//    }
     
 //    @GET    
 //    @Path("/{id}")
@@ -83,9 +98,9 @@ public class BusResource {
     @Path("/{id}")    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Bus getUserById(@PathParam("id") @Valid IntParam id)
+    public Bus getBusById(@PathParam("id") @Valid LongParam id)
     {
-        return onibus;
+        return busRepository.findById(id.get());
     }
     
     
@@ -94,7 +109,7 @@ public class BusResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setBusPosition(
-            @PathParam("id") @Valid IntParam id,
+            @PathParam("id") @Valid LongParam id,
             @PathParam("latitude")  @Valid Double  latitude, 
             @PathParam("longitude")  @Valid Double longitude) {
         System.out.println("latitude = "+latitude+" e longitude = "+longitude);
@@ -104,9 +119,10 @@ public class BusResource {
         } catch(Exception e) {
             throw new WebApplicationException(Response.status(HttpURLConnection.HTTP_BAD_REQUEST).entity("parameters are mandatory").build());
         }      
-        
-        onibus.setPosicaoAtual(latitude,longitude);
-        
+        Bus onibus = busRepository.findById(id.get());
+        onibus.setPosicaoAtual(latitude, longitude);
+    	busRepository.save(onibus);
+
         return Response.created(UriBuilder.fromResource(BusResource.class).build()).build();
        
     }
@@ -116,7 +132,7 @@ public class BusResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setBusPositionPost(
-            @PathParam("id") @Valid IntParam id,
+            @PathParam("id") @Valid LongParam id,
             @FormParam("latitude")  @Valid Double  latitude, 
             @FormParam("longitude")  @Valid Double longitude) {
         System.out.println("latitude = "+latitude+" e longitude = "+longitude);
@@ -127,7 +143,9 @@ public class BusResource {
             throw new WebApplicationException(Response.status(HttpURLConnection.HTTP_BAD_REQUEST).entity("parameters are mandatory").build());
         }      
         
-        onibus.setPosicaoAtual(latitude,longitude);
+        Bus onibus = busRepository.findById(id.get());
+        onibus.setPosicaoAtual(latitude, longitude);
+    	busRepository.save(onibus);
         
         return Response.created(UriBuilder.fromResource(BusResource.class).build()).build();
        

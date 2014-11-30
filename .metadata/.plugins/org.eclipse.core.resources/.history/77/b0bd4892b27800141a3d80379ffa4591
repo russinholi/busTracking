@@ -1,0 +1,10 @@
+package core;
+
+import java.io.Serializable;
+
+import org.springframework.data.repository.Repository;
+
+
+public abstract class AbstractRepository<T,ID extends Serializable> implements Repository<T,ID> {
+
+}

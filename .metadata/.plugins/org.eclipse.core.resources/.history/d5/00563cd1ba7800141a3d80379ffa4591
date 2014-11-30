@@ -1,0 +1,45 @@
+package core;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
+
+import core.model.Bus;
+
+@Repository
+public class BusRepository {
+	
+	@Autowired
+	private MongoOperations operations;
+	
+	public Bus findById(Long id) {
+		Query query = query(where("id").is(id));
+		return operations.findOne(query, Bus.class);
+	}
+
+	public Bus findByNome(String nome) {		
+		Query query = query(where("nome").is(nome));
+		return operations.findOne(query, Bus.class);
+	}
+	
+	public Bus save(Bus bus) {
+		operations.save(bus);
+		return bus;
+	}
+
+	public List<Bus> findAll() {
+		return operations.findAll(Bus.class);
+	}
+
+	public List<Bus> findAllByLinha(Long linhaId) {
+		Query query = query(where("linha.linhaId").is(linhaId));
+		return operations.find(query, Bus.class);
+	}
+			
+}

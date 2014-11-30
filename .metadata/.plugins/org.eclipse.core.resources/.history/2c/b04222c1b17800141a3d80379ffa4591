@@ -1,0 +1,10 @@
+package core;
+
+import org.springframework.stereotype.Repository;
+
+import core.model.Bus;
+
+@Repository
+public class BusRepository extends AbstractRepository<Bus, Long> {
+
+}

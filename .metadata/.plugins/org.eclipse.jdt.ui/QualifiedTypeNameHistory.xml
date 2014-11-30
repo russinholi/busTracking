@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="core.WSBusConfiguration"/>
+<fullyQualifiedTypeName name="javax.validation.Valid"/>
+<fullyQualifiedTypeName name="core.Ponto"/>
+<fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="org.apache.log4j.Logger"/>
+<fullyQualifiedTypeName name="core.utils.WSBusConfiguration"/>
+<fullyQualifiedTypeName name="core.utils.WSBusProperties"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
+<fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
+<fullyQualifiedTypeName name="com.mongodb.Mongo"/>
+<fullyQualifiedTypeName name="com.mongodb.MongoClientOptions"/>
+<fullyQualifiedTypeName name="org.springframework.data.mongodb.core.MongoFactoryBean"/>
+<fullyQualifiedTypeName name="org.junit.runner.RunWith"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.mongodb.MongoClient"/>
+<fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="org.springframework.test.context.ContextConfiguration"/>
+<fullyQualifiedTypeName name="core.ApplicationConfig"/>
+<fullyQualifiedTypeName name="org.springframework.data.mongodb.core.MongoTemplate"/>
+<fullyQualifiedTypeName name="org.springframework.data.mongodb.core.MongoOperations"/>
+<fullyQualifiedTypeName name="core.model.Bus"/>
+<fullyQualifiedTypeName name="core.model.Linha"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javax.validation.constraints.AssertTrue"/>
+<fullyQualifiedTypeName name="junit.framework.Assert"/>
+<fullyQualifiedTypeName name="org.springframework.data.mongodb.core.query.Query"/>
+<fullyQualifiedTypeName name="org.springframework.data.mongodb.core.query.Criteria"/>
+<fullyQualifiedTypeName name="core.model.Ponto"/>
+</qualifiedTypeNameHistroy>

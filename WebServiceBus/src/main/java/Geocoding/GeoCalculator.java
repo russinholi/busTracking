@@ -122,7 +122,7 @@ public class GeoCalculator {
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+ add +"&destination="+dest+"&waypoints="+way+"&mode=driving&sensor=false";
         //String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + start + "&destinations=" + stop + "&mode=driving&sensor=false";
         String poly = "";
-        System.out.println(url);
+//        System.out.println(url);
         boolean correto = false;
         while(!correto) {
             try {
@@ -169,7 +169,7 @@ public class GeoCalculator {
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin="+ ini +"&destination="+dest+"&mode=driving&sensor=false";
         //String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + start + "&destinations=" + stop + "&mode=driving&sensor=false";
         String poly = "";
-        System.out.println(url);
+//        System.out.println(url);
         boolean correto = false;
         while(!correto) {
             try {
