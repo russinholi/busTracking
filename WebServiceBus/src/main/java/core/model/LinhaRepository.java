@@ -35,6 +35,7 @@ public class LinhaRepository {
 			pontoRepository.save(ponto);
 		}
 		return linha;
+		
 	}
 
 	public List<Linha> findAll() {

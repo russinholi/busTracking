@@ -32,11 +32,7 @@ public class BusRepository {
 	}
 	
 	public Bus save(Bus bus) {
-		try {
-			operations.save(bus);
-		} catch (Exception e) {
-			System.out.println("PUTAMERDA "+bus.getId());;
-		}
+		operations.save(bus);
 		linhaRepository.save(bus.getLinha());
 		return bus;
 	}

@@ -52,7 +52,10 @@ public class ConfigTest {
 		ArrayList<Ponto> rota = new ArrayList<Ponto>();
 		Ponto ponto = new Ponto(903, 12.12, 23.23);
 		ponto.setPontoDeOnibus(true);
+		Ponto ponto2 = new  Ponto(905, -23.433184, -51.936641);
+		ponto2.setPontoDeOnibus(true);
 		rota.add(ponto);
+		rota.add(ponto2);
 		busRepository.save(new Bus(901, new Linha("cerro azul", 902, rota)));
 		
 		Assert.assertNotNull(busRepository.findById(901L));
@@ -80,7 +83,7 @@ public class ConfigTest {
 
 	public void prepararBaseInicial() {
         Ponto p1 = new Ponto(1, -23.439819, -51.936084);
-        Ponto p2 = new Ponto(2, -23.433184, -51.936641);
+        Ponto p2 = new Ponto(912, -23.433184, -51.936641);
         Ponto p3 = new Ponto(3, -23.426374, -51.939787);
         Ponto p4 = new Ponto(4, -23.422396, -51.939899);
         Ponto p5 = new Ponto(5, -23.416510, -51.939465);
