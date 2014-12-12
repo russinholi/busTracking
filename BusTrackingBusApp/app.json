@@ -1,4 +1,23 @@
 {
+    "builds": {
+        "web": {"default": true},
+        "native": {
+            "packager": "cordova",
+            "cordova" : {
+                "config": {
+                    // Uncomment the line below and add the platforms you wish to build for
+                    //"platforms": "ios android",
+
+                    // Name and ID properties are only used during app creation
+                    // edit this if you are recreating your cordova app
+                    //"id": "com.domain.BusTrackingBusApp",
+                    //"name": "BusTrackingBusApp"
+                }
+            }
+        }
+    },
+
+                
     /**
      * The application's namespace, used by Sencha Command to generate classes
      */
@@ -55,11 +74,11 @@
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update": "delta"
-        },
+        }/*,
         {
             "path": "https://maps.googleapis.com/maps/api/js?key=AIzaSyCXhIwjlyE-q4Dm05Wnr6iMaQBgaq3yU2c",
             "remote": true
-        }
+        }*/
     ],
 
     /**
@@ -111,6 +130,7 @@
      * Extra resources to be copied along when build
      */
     "resources": [
+        "config.xml",
         "resources/images",
         "resources/icons",
         "resources/startup"

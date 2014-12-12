@@ -11,8 +11,9 @@ Ext.define('BusTrackingBusApp.utils.Global', {
             linhaSelecionadaNome: undefined,
             button: undefined,
             linhaSelecionadaPolyline: undefined,
+            idOnibus: undefined
            // baseUrl : 'http://192.168.0.10:8080/'
-            baseUrl : 'http://192.168.0.108:9090/'
+        //   baseUrl : 'http://localhost:8080/'
         //   baseUrl : 'http://couto.ddns.net:8080/'
        //  baseUrl : 'http://timestampserver.ddns.net:8080/'
     },

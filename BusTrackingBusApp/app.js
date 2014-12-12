@@ -17,6 +17,7 @@ Ext.application({
         'Ext.MessageBox',
         'Ext.Map',
         'Ext.Ajax',
+        'Ext.Picker',
         'Ext.util.JSONP',
         'BusTrackingBusApp.utils.Global',
         'BusTrackingBusApp.view.Controlador'
@@ -31,14 +32,17 @@ Ext.application({
     stores: [
         'BusStore',
         'BusStopStore',
-        'ResponsePontoStore'
+        'ResponsePontoStore',
+        'LinhaStore',
+        'IdStore'
     ],
 
     models: [
         'Bus',
         'Linha',
         'PontoOnibus',
-        'ResponsePonto'
+        'ResponsePonto',
+        'Id'
     ],
 
 
@@ -81,14 +85,15 @@ Ext.application({
         var markersArray = [];
         BusTrackingBusApp.utils.Global.setMarkers(markersArray);
 
-        document.addEventListener("deviceready", onDeviceReady, false);
-        function onDeviceReady() {
-            console.log(device.cordova);
-            alert(device.uuid);
-        }
+        //document.addEventListener("deviceready", onDeviceReady, false);
+        //function onDeviceReady() {
+        //    console.log(device.cordova);
+        //    alert(device.uuid);
+        // }
 
-        //var baseURL = 'felipecousin.ddns.net:8080';
-        var baseURL = "192.168.0.108:9090";
+        //var baseURL = '192.168.1.40:8080';        
+        //var baseURL = "localhost:8080";
+        var baseURL = "felipecousin.ddns.net:8080";
         
         // Initialize the main view
         //Ext.Viewport.add(Ext.create('BusTrackingBusApp.view.Main'));
@@ -188,6 +193,7 @@ Ext.application({
                 var linhaStore = Ext.create('BusTrackingBusApp.store.LinhaStore');
                 linhaStore.getProxy().setUrl('http://'+baseURL+'/get/todas_linhas');
 
+
                 // busStore.load();
                 // busStore.sync();
                 linhaStore.load(function(records, operation, success) 
@@ -265,6 +271,8 @@ Ext.application({
                         //picker.show();
                         picker.addListener('change', function(picker, value, eOpts) {
 
+                            var idOnibus = BusTrackingBusApp.utils.Global.getIdOnibus();
+
                             var idAnterior = BusTrackingBusApp.utils.Global.getLinhaSelecionadaId();
                             if(idAnterior != 0) BusTrackingBusApp.utils.Global.getLinhaSelecionadaPolyline().setMap(null);
 
@@ -278,7 +286,7 @@ Ext.application({
                             BusTrackingBusApp.utils.Global.getButton().setText(value.linhaSelecionada['text']);
 
                             if(idSelecionado != idAnterior) Ext.util.JSONP.request({ 
-                                    url: 'http://'+baseURL+'/get/setarlinha/12/'+idSelecionado 
+                                    url: 'http://'+baseURL+'/get/setarlinha/'+idOnibus+'/'+idSelecionado 
                             });
 
                             atualizarPontos();
@@ -303,7 +311,6 @@ Ext.application({
                 text: 'Todas Linhas',
                 width: '50%',
                 handler: function() {
-		    alert("putamerda");
                     BusTrackingBusApp.utils.Global.getPicker().show();
                 }
             });
@@ -328,6 +335,7 @@ Ext.application({
                 ]
             });
             var mapa = Ext.create('BusTrackingBusApp.view.MyMap');
+            var id = 10;
 
             Ext.create('Ext.Panel', {
                 fullscreen: true,
@@ -340,21 +348,41 @@ Ext.application({
             BusTrackingBusApp.utils.Global.setLinhaSelecionadaId(0);
             BusTrackingBusApp.utils.Global.setMapa(mapa);
 
+            var idStore = Ext.create('BusTrackingBusApp.store.IdStore', {
+                proxy: {
+                    type: 'rest',
+                    url: 'http://'+baseURL+'/get/inicializar_id'
+                }
+            });
+
+            idStore.load(function(records, operation, success) {
+                idStore.each(function (item, index, length) {
+                    id = item.getId();
+                    BusTrackingBusApp.utils.Global.setIdOnibus(id);
+                    setInterval(function() {
+                        var mapa = BusTrackingBusApp.utils.Global.getMapa();
+                        Ext.util.JSONP.request({ 
+                            url: 'http://'+baseURL+'/get/setargps/'+id+'/'+mapa.getLatitude()+'/'+mapa.getLongitude() 
+                        }); 
+                    }, 5000);
+                });
+            });
+
+            console.log(id);
+
+
+
             var markersP = [];
             BusTrackingBusApp.utils.Global.setMarkersParadas(markersP);
             
             adicionarLinhas();
 
             Ext.fly('appLoadingIndicator').destroy();
+
             
             //navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError,{ maximumAge: 5000, timeout: 10000, enableHighAccuracy: true });
             
-            setInterval(function() {
-                var mapa = BusTrackingBusApp.utils.Global.getMapa();
-                Ext.util.JSONP.request({ 
-                    url: 'http://'+baseURL+'/get/setargps/12/'+mapa.getLatitude()+'/'+mapa.getLongitude() 
-                }); 
-            }, 5000);
+            
 
             var geolocationSuccess = function(position) {
                 //Ext.Viewport.setMasked(false);

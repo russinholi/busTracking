@@ -31,6 +31,7 @@ C:\Users\Felipe\Desktop\TimeStampRepo\BusTrackingBusApp\cordova\platforms\androi
 C:\Users\Felipe\Desktop\TimeStampRepo\BusTrackingBusApp\cordova\platforms\android\assets\_where-is-www.txt \
 C:\Users\Felipe\Desktop\TimeStampRepo\BusTrackingBusApp\cordova\platforms\android\assets\www\app.js \
 C:\Users\Felipe\Desktop\TimeStampRepo\BusTrackingBusApp\cordova\platforms\android\assets\www\app.json \
+C:\Users\Felipe\Desktop\TimeStampRepo\BusTrackingBusApp\cordova\platforms\android\assets\www\config.xml \
 C:\Users\Felipe\Desktop\TimeStampRepo\BusTrackingBusApp\cordova\platforms\android\assets\www\cordova.js \
 C:\Users\Felipe\Desktop\TimeStampRepo\BusTrackingBusApp\cordova\platforms\android\assets\www\cordova_plugins.js \
 C:\Users\Felipe\Desktop\TimeStampRepo\BusTrackingBusApp\cordova\platforms\android\assets\www\css \

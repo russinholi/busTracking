@@ -29,7 +29,8 @@ Ext.application({
     stores: [
         'BusStore',
         'BusStopStore',
-        'ResponsePontoStore'
+        'ResponsePontoStore',
+        'LinhaStore'
     ],
 
     models: [
@@ -77,7 +78,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         //var baseURL = "felipecousin.ddns.net:8080";
-        var baseURL = "localhost:8080";
+        var baseURL = "192.168.1.40:8080";
 
         var markersArray = [];
         BusTracking.utils.Global.setMarkers(markersArray);
