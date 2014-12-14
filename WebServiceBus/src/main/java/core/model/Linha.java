@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import Geocoding.GeoCalculator;
@@ -28,16 +29,20 @@ import Geocoding.RouteBoxer.RouteBoxer;
 @Document
 public class Linha implements Comparable<Linha> {
     
+	@Id
+	private int id;
     private String nome;
-    private long id;
+    private List<Bus> listaOnibus = new ArrayList<Bus>();
     private List<Ponto> rota = new ArrayList<Ponto>();
     private List<Ponto> pontosNaLinha = new ArrayList<Ponto>();
     private List<Integer> distancias = new ArrayList<Integer>();
     private List<Integer> tempos = new ArrayList<Integer>();
     private String polyline = "";
-    private HashMap<Ponto, ArrayList<LatLngBounds>> listaBounds = new HashMap<Ponto, ArrayList<LatLngBounds>>();
+    private HashMap<Integer, ArrayList<LatLngBounds>> listaBounds = new HashMap<Integer, ArrayList<LatLngBounds>>();
 
-    public Linha(String nome, long id, List<Ponto> rota) {
+    public Linha(){}
+    
+    public Linha(String nome, int id, List<Ponto> rota) {
         this.nome = nome;
         this.id = id;
         this.rota = rota;
@@ -57,7 +62,7 @@ public class Linha implements Comparable<Linha> {
                 ArrayList<GeoPoint> listaGeo2 = PolylineEncoder.decode(polyTrecho, 10);
                 listaGeo.addAll(listaGeo2);
                 ArrayList<LatLngBounds> bounds = (ArrayList<LatLngBounds>) rb.box(rb.decodePath(polyTrecho), 20); // 0.01 milhas, ou 16 metros
-                listaBounds.put(anterior, bounds);
+                listaBounds.put(anterior.getId(), bounds);
             }
             anterior = prox;
             i++;
@@ -77,7 +82,7 @@ public class Linha implements Comparable<Linha> {
             ArrayList<GeoPoint> listaGeo2 = PolylineEncoder.decode(polyTrecho, 10);
             listaGeo.addAll(listaGeo2);
             ArrayList<LatLngBounds> bounds = (ArrayList<LatLngBounds>) rb.box(rb.decodePath(polyTrecho), 20); // 0.01 milhas, ou 16 metros
-            listaBounds.put(anterior, bounds);
+            listaBounds.put(anterior.getId(), bounds);
             //polyline = GeoCalculator.getPolyline(rota.get(0).getAddress(), waypoints);        
         }
         polyline = PolylineEncoder.encode(listaGeo, 10);
@@ -89,7 +94,7 @@ public class Linha implements Comparable<Linha> {
         return nome;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -194,7 +199,12 @@ public class Linha implements Comparable<Linha> {
 		return true;
 	}
     
-    
+    public void adicionarOnibus(Bus onibus) {
+    	this.listaOnibus.add(onibus);
+    	onibus.setLinhaId(this);
+    }
 
-    
+    public List<Bus> getListaOnibus() {
+    	return listaOnibus;
+    }
 }

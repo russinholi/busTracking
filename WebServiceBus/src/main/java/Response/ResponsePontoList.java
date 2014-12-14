@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import core.model.Bus;
+import core.model.Linha;
 import core.model.Ponto;
 
 /*
@@ -31,11 +32,11 @@ public class ResponsePontoList {
 
     
     
-    public static List<ResponsePonto> convertBusListToResponsePonto(List<Bus> onibusPonto) {
+    public static List<ResponsePonto> convertBusListToResponsePonto(List<Bus> onibusPonto, Linha linha) {
     	List<ResponsePonto> responsePontos = new ArrayList<ResponsePonto>();
 		for (Bus bus : onibusPonto) {
-			for (Ponto ponto : bus.getLinha().getPontosNaLinha()) {
-				ResponsePonto responsePonto = new ResponsePonto(ponto, bus.getLinha(), bus);
+			for (Ponto ponto : linha.getPontosNaLinha()) {
+				ResponsePonto responsePonto = new ResponsePonto(ponto,linha, bus);
 				responsePonto.atualizar();
 				responsePontos.add(responsePonto);
 			}

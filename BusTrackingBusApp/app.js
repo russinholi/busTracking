@@ -92,8 +92,8 @@ Ext.application({
         // }
 
         //var baseURL = '192.168.1.40:8080';        
-        //var baseURL = "localhost:8080";
-        var baseURL = "felipecousin.ddns.net:8080";
+        var baseURL = "localhost:9090";
+        //var baseURL = "felipecousin.ddns.net:8080";
         
         // Initialize the main view
         //Ext.Viewport.add(Ext.create('BusTrackingBusApp.view.Main'));
@@ -251,7 +251,7 @@ Ext.application({
                             //flightPath.getPath().push("|~`nC`x~{HwIZsGVkI^wDLuAHvx_nCl{~{HmDZ_BTeAVsCx@{DxAuAn@}FjDy@d@sA]a@`Ao@|@WTa@@}@^A@dn~mCho_|HWDaAFiDA{JI{A?hw}mCjo_|HqD@uDCyBAiE?yCCsAK_Ek@I?dt|mCjm_|H{SC}I?iCCg@Ae@B[LiAAaDEuAEwEo@|{zmCtk_|HoCy@_D|MvIhC`D~@ENDJt@lCt@hDpA]dD}@hD_Aj@OXWf@EIa@eB}H{@oDcAsEOy@MmAGyABwBPeBVyAdBqHxDaPaHyB}@YK\yCxLsB|HhDdAxC`Adn{mCdy~{HRJRHbCB`CBdB@rE?jFDhKBjDc@xAEfAG|A@t@?dd}mC~x~{HvFBdB?tDDzADrAA`BA|D@hc~mCly~{HrE@fA@d@Fj@Nv@^p@d@^h@Xf@X`ABJDA|Bu@|x~mCv__|H`Bg@~{~mCn~~{HtEyAn@MPAHFNDN?TGhAe@VOLORYXQt@UlCw@jH_CI[sC~@iF`B|n_nCpu~{HaCl@YFGEQGSAi@FeA\OLINCTDZJVPJPBNC`Aa@`@SNKNYVQXO`AYjGmB~@YzFiBz@Yfb`nCln~{HvAc@pBeAdCiAH@F@RAFELKDO@InDaApDi@|BIz}`nCxc~{HhIG`DCbDExCE?[q@?iDB}@BjnanClb~{H_B@?^z@AzBAZtF?B~qanCdk~{Hd@nI{BRqF\yGX
                             //flightPath.setMap(BusTrackingBusApp.utils.Global.getMapa().getMap());
 
-                            array.push({text: item.getNome(), value: {text: item.getNome(), value: item.getIdLinha(), polyline: flightPath}});
+                            array.push({text: item.getNome(), value: {text: item.getNome(), value: item.getId(), polyline: flightPath}});
 
                         });
                         var picker = Ext.create('Ext.Picker', {

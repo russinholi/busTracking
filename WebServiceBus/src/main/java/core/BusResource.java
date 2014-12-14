@@ -2,7 +2,7 @@ package core;
 
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import io.dropwizard.jersey.params.LongParam;
+import io.dropwizard.jersey.params.IntParam;
 
 import java.net.HttpURLConnection;
 
@@ -30,7 +30,7 @@ import core.model.PontoRepository;
 //import static com.google.common.base.Preconditions.checkNotNull;
 //import com.sun.jersey.api.ConflictException;
 //import io.dropwizard.jersey.params.IntParam;
-//import io.dropwizard.jersey.params.LongParam;
+//import io.dropwizard.jersey.params.IntParam;
 //import com.sun.jersey.multipart.FormDataParam;
 //import io.dropwizard.hibernate.UnitOfWork;
 //import java.io.IOException;
@@ -98,7 +98,7 @@ public class BusResource {
     @Path("/{id}")    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Bus getBusById(@PathParam("id") @Valid LongParam id)
+    public Bus getBusById(@PathParam("id") @Valid IntParam id)
     {
         return busRepository.findById(id.get());
     }
@@ -109,7 +109,7 @@ public class BusResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setBusPosition(
-            @PathParam("id") @Valid LongParam id,
+            @PathParam("id") @Valid IntParam id,
             @PathParam("latitude")  @Valid Double  latitude, 
             @PathParam("longitude")  @Valid Double longitude) {
         System.out.println("latitude = "+latitude+" e longitude = "+longitude);
@@ -132,7 +132,7 @@ public class BusResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setBusPositionPost(
-            @PathParam("id") @Valid LongParam id,
+            @PathParam("id") @Valid IntParam id,
             @FormParam("latitude")  @Valid Double  latitude, 
             @FormParam("longitude")  @Valid Double longitude) {
         System.out.println("latitude = "+latitude+" e longitude = "+longitude);

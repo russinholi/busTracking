@@ -12,8 +12,10 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 import com.mongodb.MongoClient;
 
+import core.utils.WSBusProperties;
+
 @Configuration
-@ComponentScan({"core"})
+@ComponentScan("core")
 public class ApplicationConfig {
 
 	
@@ -24,7 +26,7 @@ public class ApplicationConfig {
 	
 	@Bean 
 	public MongoDbFactory mongoDbFactory() throws Exception {
-		   return new SimpleMongoDbFactory(mongoClient(), "busTracking");
+		   return new SimpleMongoDbFactory(mongoClient(), WSBusProperties.getInstance().getDatabaseName());
 	}
 	
 	@Bean

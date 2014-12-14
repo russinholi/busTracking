@@ -2,7 +2,7 @@ package core;
 
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import io.dropwizard.jersey.params.LongParam;
+import io.dropwizard.jersey.params.IntParam;
 
 import java.net.HttpURLConnection;
 import java.util.List;
@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import Response.BusList;
 import Response.LinhaList;
@@ -41,6 +42,7 @@ import core.model.PontoRepository;
  *
  * @author Felipe Cousin
  */
+@Component
 @Path("/get")
 public class ConfigResource {
     
@@ -52,6 +54,8 @@ public class ConfigResource {
     
     @Autowired
 	private PontoRepository pontoRepository;
+    
+    private int idAtual = 10;
     
     public ConfigResource() {
         
@@ -73,26 +77,35 @@ public class ConfigResource {
     @Path("/bus/{id}/linha")    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Linha getLinhaBusById(@PathParam("id") @Valid LongParam id)
+    public Linha getLinhaBusById(@PathParam("id") @Valid IntParam id)
     {
     	Bus bus = busRepository.findById(id.get());
-        return bus.getLinha();
+        return linhaRepository.findById(bus.getLinhaId());
     }
     
     @GET    // retorna a linha do onibus {id}
     @Path("/todas_linhas")    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public LinhaList getLinhaBusById()
+    public LinhaList getLinhas()
     {
     	return new LinhaList(linhaRepository.findAll());
+    }
+    
+    @GET   
+    @Path("/inicializar_id")    
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Integer teste()
+    {        
+        return idAtual++;
     }
     
     @GET    // retorna o onibus {id}
     @Path("/bus/{id}")    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Bus getPosicaoBusById(@PathParam("id") @Valid LongParam id)
+    public Bus getPosicaoBusById(@PathParam("id") @Valid IntParam id)
     {
         return busRepository.findById(id.get());
     }
@@ -101,7 +114,7 @@ public class ConfigResource {
     @Path("/linha/{id}")    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public BusList getOnibusNaLinha(@PathParam("id") @Valid LongParam id)
+    public BusList getOnibusNaLinha(@PathParam("id") @Valid IntParam id)
     {
         //System.out.println(listaOnibus.toString());    
         if(id.get() == 0) return new BusList(busRepository.findAll());
@@ -112,14 +125,15 @@ public class ConfigResource {
     @Path("/ponto/{idPonto}/linha/{idLinha}")    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponsePontoList getOnibusNoPonto(@PathParam("idPonto") @Valid LongParam varIdPonto,
-                                              @PathParam("idLinha") @Valid LongParam varIdLinha)
+    public ResponsePontoList getOnibusNoPonto(@PathParam("idPonto") @Valid IntParam varIdPonto,
+                                              @PathParam("idLinha") @Valid IntParam varIdLinha)
     {
-        long idPonto = varIdPonto.get();
-        long idLinha = varIdLinha.get();
+        int idPonto = varIdPonto.get();
+        int idLinha = varIdLinha.get();
         List<Bus> onibusPonto = busRepository.findAllByPontoAndLinha(idPonto, idLinha);
+        Linha linha = linhaRepository.findById(idLinha);
         
-		List<ResponsePonto> responsePontoList = ResponsePontoList.convertBusListToResponsePonto(onibusPonto);
+		List<ResponsePonto> responsePontoList = ResponsePontoList.convertBusListToResponsePonto(onibusPonto, linha);
         return new ResponsePontoList(responsePontoList);
     }
     
@@ -160,7 +174,7 @@ public class ConfigResource {
     @Path("/pontos_linha/{idLinha}")    
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public PontoList getPontos(@PathParam("idLinha") @Valid LongParam varIdLinha)
+    public PontoList getPontos(@PathParam("idLinha") @Valid IntParam varIdLinha)
     {     
     	long idLinha = varIdLinha.get();
         if(idLinha == 0) {
@@ -176,7 +190,7 @@ public class ConfigResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setBusPosition(
-            @PathParam("id") @Valid LongParam id,
+            @PathParam("id") @Valid IntParam id,
             @PathParam("latitude")  @Valid Double  latitude, 
             @PathParam("longitude")  @Valid Double longitude) {
         System.out.println("latitude = "+latitude+" e longitude = "+longitude);
@@ -198,8 +212,8 @@ public class ConfigResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setLinhaBus(
-            @PathParam("idBus") @Valid LongParam idBus,
-            @PathParam("idLinha")  @Valid LongParam  idLinha) {
+            @PathParam("idBus") @Valid IntParam idBus,
+            @PathParam("idLinha")  @Valid IntParam  idLinha) {
 
         try {
             checkNotNull(idBus);
@@ -210,7 +224,7 @@ public class ConfigResource {
         Linha linha = linhaRepository.findById(idLinha.get());
         
         Bus onibus = busRepository.findById(idBus.get());
-        onibus.setLinha(linha);
+        onibus.setLinhaId(linha);
     	busRepository.save(onibus);
         
         return Response.created(UriBuilder.fromResource(BusResource.class).build()).build();       

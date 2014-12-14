@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 public class WSBusProperties {
@@ -40,6 +41,14 @@ public class WSBusProperties {
 		return getIntegerProperty("adminConnector.port", 9190);
 	}
 
+	public String getDatabaseName() {
+		String value = properties.getProperty("database.name");
+		if (StringUtils.isBlank(value)) {
+			value = "busTracking";
+		}
+		return value;
+		
+	}
 	private int getIntegerProperty(String propertyName, int defaultValue) {
 		String value = properties.getProperty(propertyName);
 		int integerValue = defaultValue;

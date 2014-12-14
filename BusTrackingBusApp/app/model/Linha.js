@@ -1,9 +1,9 @@
 Ext.define('BusTrackingBusApp.model.Linha', {
     extend: 'Ext.data.Model',
     config: {
-        idProperty: 'idLinha',
+        idProperty: 'id',
         fields: [
-            { name: 'idLinha', type: 'int' },
+            { name: 'id', type: 'int' },
            // { name: 'multimidia', type: 'string' },
             { name: 'nome', type: 'string' },
             { name: 'polyline', type: 'undefined'},
@@ -23,8 +23,8 @@ Ext.define('BusTrackingBusApp.model.Linha', {
         ],*/
     },
 
-    getIdLinha: function() {
-        return this.get('idLinha');
+    getId: function() {
+        return this.get('id');
     },
 
     getNome: function() {

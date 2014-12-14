@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /*
@@ -21,20 +22,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Bus {
     
-    private final long id;
+	@Id
+    private int id;
     private double latitudeAtual = 0;
     private double longitudeAtual = 0; 
     private String nome;
-    private Linha linha;
+    private int linhaId;
     private int crowdness;
     private ArrayList<Crowdness> list = new ArrayList<Crowdness>();
     private Ponto anterior;
     private boolean dadosAtuais = false;
     private int tempoProximoPonto = 0;
     
-    public Bus(long id, Linha linha) {
+    public Bus() {}
+    
+    public Bus(int id, Linha linha) {
         this.id = id;
-        this.linha = linha;
+        this.linhaId = linha.getId();
+        linha.adicionarOnibus(this);
         this.nome = "Ônibus "+id+ " - "+linha.getNome();
         crowdness = 1;
         anterior = linha.getPontosNaLinha().get(0);
@@ -57,8 +62,8 @@ public class Bus {
         return nome;
     }
     
-    public Linha getLinha() {
-        return linha;
+    public int getLinhaId() {
+        return linhaId;
     }
 
     public void setPosicaoAtual(double latitudeAtual, double longitudeAtual) {
@@ -66,10 +71,10 @@ public class Bus {
         this.longitudeAtual = longitudeAtual;
     }
     
-    public void setLinha(Linha l) {
-        linha = l;
-        nome = "Onibus "+id+" - "+linha.getNome();
-        anterior = linha.getPontosNaLinha().get(0);        
+    public void setLinhaId(Linha l) {
+        linhaId = l.getId();
+        nome = "Onibus "+id+" - "+l.getNome();
+        anterior = l.getPontosNaLinha().get(0);        
     }
 
     public int getCrowdness() {

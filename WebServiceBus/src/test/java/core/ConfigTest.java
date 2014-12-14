@@ -11,13 +11,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import core.model.Bus;
 import core.model.BusRepository;
 import core.model.Linha;
+import core.model.LinhaRepository;
 import core.model.Ponto;
 import core.model.PontoRepository;
 
@@ -32,20 +32,29 @@ public class ConfigTest {
 	private BusRepository busRepository;
 
 	@Autowired
+	private LinhaRepository linhaRepository;
+
+	@Autowired
 	private PontoRepository pontoRepository;
 
 	@Before
 	public void setup() {
-		prepararBaseInicial();
+//		prepararBaseInicial();
 	}
 
 	@After
 	public void tearDown() {
-		mongoOperations.remove(new Query(), Bus.class);
-		mongoOperations.remove(new Query(), Linha.class);
-		mongoOperations.remove(new Query(), Ponto.class);
+//		mongoOperations.remove(new Query(), Bus.class);
+//		mongoOperations.remove(new Query(), Linha.class);
+//		mongoOperations.remove(new Query(), Ponto.class);
 	}
 
+	@Test
+	public void testarFindAll() {
+		List<Bus> todosOnibus = busRepository.findAll();
+		Assert.assertFalse(todosOnibus.isEmpty());
+	}
+	
 	@Test
 	public void testarInsercaoSimple() {
 		
@@ -58,7 +67,7 @@ public class ConfigTest {
 		rota.add(ponto2);
 		busRepository.save(new Bus(901, new Linha("cerro azul", 902, rota)));
 		
-		Assert.assertNotNull(busRepository.findById(901L));
+		Assert.assertNotNull(busRepository.findById(901));
 	}
 
 	@Test
@@ -74,9 +83,9 @@ public class ConfigTest {
 		ponto = new Ponto(4, 12.12, 23.23);
 		ponto.setPontoDeOnibus(true);
 		rota.add(ponto);
-		busRepository.save(new Bus(902, new Linha("cerro azul", 902, rota)));
+		busRepository.save(new Bus(902, new Linha("cerro azul2", 903, rota)));
 		
-		List<Bus> onibusLinha = busRepository.findAllByLinha(902L);
+		List<Bus> onibusLinha = busRepository.findAllByLinha(902);
 		Assert.assertEquals(2, onibusLinha.size());
 
 	}
@@ -381,12 +390,10 @@ public class ConfigTest {
         onibus5.setPosicaoAtual(-23.419778102985283, -51.94443225860596);
         onibus6.setPosicaoAtual(-23.428126371939317, -51.956706047058105);
         
-        busRepository.save(onibus);
-        busRepository.save(onibus2);
-        busRepository.save(onibus3);
-        busRepository.save(onibus4);
-        busRepository.save(onibus5);
-        busRepository.save(onibus6);
+        linhaRepository.save(l1);
+        linhaRepository.save(l2);
+        linhaRepository.save(l3);
+        linhaRepository.save(l4);
  		
 	}
 	

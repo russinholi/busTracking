@@ -14,6 +14,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.thetransactioncompany.cors.CORSFilter;
 
 import core.model.Bus;
+import core.utils.CVSImporter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -40,8 +41,7 @@ public class WSBusApplication extends Application<WSBusConfiguration> {
 
     @Override
     public void run(WSBusConfiguration t, Environment environment) throws Exception {
-    	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-    	
+    	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         FilterRegistration.Dynamic c = environment.servlets().addFilter(CORSFilter.class.getName(), new CORSFilter());
                       
         
@@ -56,7 +56,11 @@ public class WSBusApplication extends Application<WSBusConfiguration> {
         c.setInitParameter("Access-Control-Max-Age", "3600");
         
         
-        
+        boolean shouldImportFile = Boolean.getBoolean("bus.import");
+        if (shouldImportFile) {
+        	CVSImporter cvsImporter = context.getBean(CVSImporter.class);
+        	cvsImporter.importDataFromFile();
+        }
         
         
         ConfigResource configResource = context.getBean(ConfigResource.class);

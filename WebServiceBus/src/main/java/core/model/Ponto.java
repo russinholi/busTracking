@@ -1,5 +1,6 @@
 package core.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -16,15 +17,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document
 public class Ponto {
-    
+
+	@Id
+	private int id;
     private double latitude;
     private double longitude;
-    private final long id;
     private String address;
     private boolean pontoDeOnibus = false;
-    private long linhaId;
+    private int linhaId;
 
-    public Ponto(long id, double latitude, double longitude) {
+    public Ponto(){}
+    
+    public Ponto(int id, double latitude, double longitude) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -60,7 +64,7 @@ public class Ponto {
         this.pontoDeOnibus = pontoDeOnibus;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
     
@@ -101,11 +105,11 @@ public class Ponto {
 		return true;
 	}
 
-	public long getLinhaId() {
+	public int getLinhaId() {
 		return linhaId;
 	}
 
-	public void setLinhaId(long linhaId) {
+	public void setLinhaId(int linhaId) {
 		this.linhaId = linhaId;
 	}
 

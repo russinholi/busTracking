@@ -19,7 +19,10 @@ public class LinhaRepository {
 	@Autowired
 	private PontoRepository pontoRepository;
 
-	public Linha findById(Long id) {
+	@Autowired
+	private BusRepository busRepository;
+
+	public Linha findById(Integer id) {
 		Query query = query(where("id").is(id));
 		return operations.findOne(query, Linha.class);
 	}
@@ -34,6 +37,9 @@ public class LinhaRepository {
 		for (Ponto ponto : linha.getPontosNaLinha()) {
 			pontoRepository.save(ponto);
 		}
+		for (Bus onibus : linha.getListaOnibus()) {
+			busRepository.save(onibus);
+		}
 		return linha;
 		
 	}
@@ -41,5 +47,5 @@ public class LinhaRepository {
 	public List<Linha> findAll() {
 		return operations.findAll(Linha.class);
 	}
-			
+		
 }

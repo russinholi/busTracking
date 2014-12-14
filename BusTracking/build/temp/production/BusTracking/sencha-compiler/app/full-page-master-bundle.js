@@ -1,2 +1,2 @@
 // @tag full-page
-// @require C:\Users\Felipe\Desktop\TimeStampRepo\BusTracking\app.js
+// @require /home/reginaldo/Documentos/Mestrado/Dissertação/trabalho_tsc/workspace/BusTracking/app.js

@@ -21,7 +21,7 @@ public class BusRepository {
 	@Autowired
 	private LinhaRepository linhaRepository;
 		
-	public Bus findById(Long id) {
+	public Bus findById(Integer id) {
 		Query query = query(where("id").is(id));
 		return operations.findOne(query, Bus.class);
 	}
@@ -33,7 +33,6 @@ public class BusRepository {
 	
 	public Bus save(Bus bus) {
 		operations.save(bus);
-		linhaRepository.save(bus.getLinha());
 		return bus;
 	}
 
@@ -41,18 +40,21 @@ public class BusRepository {
 		return operations.findAll(Bus.class);
 	}
 
-	public List<Bus> findAllByLinha(Long idLinha) {
-		Query query = query(where("linha.id").is(idLinha));
+	public List<Bus> findAllByLinha(Integer idLinha) {
+		Query query = query(where("linhaId").is(idLinha));
 		return operations.find(query, Bus.class);
+	}
+	
+	public List<Bus> findAllByPontoAndLinha(Integer idPonto, Integer idLinha) {
+		Criteria where = where("rota._id").is(idPonto);
+		if (idLinha > 0) {
+			where.and("_id").is(idLinha);
+		}
+		Query query = query(where).with(new Sort(Sort.Direction.ASC,"rota.tempo"));
+		List<Linha> linhas = operations.find(query, Linha.class);
+		Query busQuery = query(where("linhaId").in(linhas));
+		return operations.find(busQuery, Bus.class);
 	}
 
-	public List<Bus> findAllByPontoAndLinha(long idPonto, long idLinha) {
-		Criteria where = where("linha.rota._id").is(idPonto);
-		if (idLinha > 0) {
-			where.and("linha.idLinha").is(idLinha);
-		}
-		Query query = query(where).with(new Sort(Sort.Direction.ASC,"linha.roda.tempo"));
-		return operations.find(query, Bus.class);
-	}
 			
 }
